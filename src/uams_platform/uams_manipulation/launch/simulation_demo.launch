@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- launch the simulation ekf -->
+    <include file="$(find uams_manipulation)/launch/simulation_ekf_uav.launch" />
+
+    <!-- launch the pd controller -->
+    <!-- <node type="uav_neo11_control.py" pkg="uams_manipulation" name="uav_control_node" output="screen"> -->
+    <!-- </node> -->
+
+     <!-- <node type="get_transformation_matrix.py" pkg="uams_manipulation" name="get_transformation_node" output="screen"> -->
+    <!-- </node> -->
+
+    <node type="model_based_motion_control_uams.py" pkg="uams_manipulation" name="uams_motion_control_node" output="screen">
+    </node>
+</launch>

@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: uams_description
+    relative_path: urdf/uams_platform_open_manipulation.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/uams_platform.srdf
+  CONFIG:
+    author_name: uams
+    author_email: jingtaosun@hnu.edu.cn
+    generated_timestamp: 1609226547

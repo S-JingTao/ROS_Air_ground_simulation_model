@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="uams_platform">
+  <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+  <xacro:arg name="namespace" default="firefly"/>
+ 
+  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+  <xacro:include filename="$(find rotors_description)/urdf/neo11.xacro" />
+  <xacro:include filename="$(find ur_description)/urdf/ur3.urdf.xacro" />
+  <xacro:include filename="$(find robotiq_ft_sensor)/urdf/robotiq_ft300.urdf.xacro" />
+  <xacro:include filename="$(find robotiq_85_description)/urdf/robotiq_85_gripper.urdf.xacro" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
+
+ 
+
+  <xacro:ur3_robot prefix="" joint_limited="false"
+    transmission_hw_interface="$(arg transmission_hw_interface)"
+  />
+ 
+
+  <joint name="vehicle_joint" type="fixed">
+    <parent link="${namespace}/base_link" />
+    <child link = "base_link" />
+    <origin xyz="0.0 0.0 0" rpy="0.0 ${pi} 0.0" />
+  </joint>
+
+  <xacro:robotiq_ft300 prefix="" parent="tool0" >
+		<origin xyz="0 0 0" rpy="0 0 0"/> 
+	</xacro:robotiq_ft300>
+
+  <xacro:robotiq_85_gripper prefix="" parent="robotiq_ft_frame_id">
+    <origin xyz="0 0 0" rpy="${pi/2} ${-pi/2} 0 "/>
+  </xacro:robotiq_85_gripper>
+
+  <xacro:sensor_d435i name="" parent="robotiq_ft_frame_id" >
+    <origin xyz="0 0.06 0" rpy="0.0 -${pi/2} ${pi/2}" />
+  </xacro:sensor_d435i>
+
+</robot>

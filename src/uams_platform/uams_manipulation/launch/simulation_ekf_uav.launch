@@ -1,0 +1,6 @@
+<launch>
+    <!-- launch the simulation ekf -->
+    <node type="simulation_ekf_uav.py" pkg="uams_manipulation" name="uav_ekf_node" output="screen">
+    </node>
+
+</launch>

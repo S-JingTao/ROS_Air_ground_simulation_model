@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- params -->
+  <arg name="mav_name" default="neo11"/>
+  <arg name="world_name" default="empty"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="enable_logging" default="false" />
+  <arg name="enable_ground_truth" default="true" />
+  <arg name="log_file" default="$(arg mav_name)" />
+  <arg name="paused" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="debug" default="false"/>
+  <arg name="verbose" default="false"/>
+  <arg name="limited" default="false" doc="If true, limits joint range [-PI, PI] on all joints." />
+
+  <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find rotors_gazebo)/models"/>
+  <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find rotors_gazebo)/models"/>
+  
+  <!-- startup simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" default="$(find uams_gazebo)/worlds/$(arg world_name).world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="verbose" value="$(arg verbose)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+  </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <include file="$(find uams_description)/launch/uams_platform_upload_open_manipulator.launch">
+    <arg name="limited" value="$(arg limited)"/>
+  </include>
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" 
+    args="-urdf 
+    -param robot_description 
+    -model robot 
+    -z 3
+    -J gripper_sub 0.005" 
+    respawn="false" output="screen" />
+
+  <!-- Run controller utils -->
+  <include file="$(find open_manipulator_gazebo)/launch/controller_utils.launch"/>
+
+  <!-- ros_control robotis manipulator launch file -->
+  <include file="$(find open_manipulator_gazebo)/launch/open_manipulator_controller.launch"/>
+
+
+  <include file="$(find uams_moveit_config)/launch/move_group.launch">
+    <arg name="debug" default="$(arg debug)" />
+  </include>
+
+  <include file="$(find uams_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="debug" default="$(arg debug)" />
+    <arg name="config" default="true" />
+  </include>
+
+</launch>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/src/Quadcopter-Control" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/find_object_2d" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/geometry2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/open_manipulator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/open_manipulator/open_manipulator_msgs" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/open_manipulator/open_manipulator_simulations" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/open_manipulator_find_object_2d" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/realsense" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/robotiq/robotiq_85_gripper" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/uams_platform/open_manipulator_test/open_manipulator_env" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/uav_robot/mav_comm" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/uav_robot/rotors_simulator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/universal_robot" vcs="Git" />
+  </component>
+</project>

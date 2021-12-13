@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="uams_platform">
+  <xacro:arg name="namespace" default="neo11"/>
+  <xacro:arg name="use_nominal_extrinsics" default="false" />
+  <xacro:arg name="enable_mavlink_interface" default="false"/>
+
+
+  <!-- rotors Chain -->
+  <xacro:include filename="$(find rotors_description)/urdf/neo11_base.xacro" />
+  
+  <!-- Open_Manipulator Chain -->
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find open_manipulator_description)/urdf/materials.xacro" />
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <xacro:include filename="$(find open_manipulator_description)/urdf/open_manipulator.gazebo.xacro" />
+  <!-- Import Transmission -->
+  <xacro:include filename="$(find open_manipulator_description)/urdf/open_manipulator.transmission.xacro" />
+  <!-- Import URDF -->
+  <xacro:include filename="$(find open_manipulator_description)/urdf/open_manipulator.urdf.xacro" />
+
+
+  <!-- realsense camera Chain -->
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
+
+
+  <joint name="vehicle_joint" type="fixed">
+    <parent link="${namespace}/base_link_inertia" />
+    <child link = "link1" />
+    <origin xyz="0.0 0.0 0" rpy="0.0 ${pi} ${-pi}" />
+  </joint>
+
+  <xacro:sensor_d435i parent="camera_link" name="depth_camera" use_nominal_extrinsics="false">
+    <origin xyz="0 -0.03 -0.02" rpy="0.0 0.0 0.0" />
+  </xacro:sensor_d435i>
+
+</robot>

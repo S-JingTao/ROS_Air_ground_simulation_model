@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: catkin-tools
+Version: 0.6.1
+Summary: Command line tools for working with catkin.
+Home-page: http://catkin-tools.readthedocs.org/
+Author: William Woodall
+Author-email: william@osrfoundation.org
+Maintainer: William Woodall
+Maintainer-email: william@osrfoundation.org
+License: Apache 2.0
+Keywords: catkin
+Platform: UNKNOWN
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python
+Requires-Dist: PyYAML
+Requires-Dist: catkin-pkg (>0.2.9)
+Requires-Dist: osrf-pycommon (>0.1.1)
+Requires-Dist: setuptools
+Requires-Dist: trollius
+
+Provides command line tools for working with catkin.
+
+

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="mav_name" default="neo11"/>
+  <arg name="world_name" default="basic"/>
+  <arg name="x" default="0.0"/>
+  <arg name="y" default="0.0"/>
+  <arg name="z" default="3.0"/>
+  <arg name="enable_logging" default="false"/>
+  <arg name="enable_ground_truth" default="true"/>
+  <arg name="log_file" default="$(arg mav_name)"/>
+  <arg name="wait_to_record_bag" default="false"/>
+  <arg name="enable_mavlink_interface" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="paused" default="true"/>
+  <arg name="namespace" default="uams"/>
+  <arg name="use_sim_time" default="false"/>
+  <!-- The following line causes gzmsg and gzerr messages to be printed to the console
+      (even when Gazebo is started through roslaunch) -->
+  <arg name="verbose" default="false"/>
+
+  <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find rotors_gazebo)/models"/>
+  <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find rotors_gazebo)/models"/>
+  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find rotors_gazebo)/worlds/$(arg world_name).world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="paused" value="$(arg paused)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="verbose" value="$(arg verbose)"/>
+  </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <!-- <include file="$(find uams_description)/launch/uams_platform_upload_open_manipulator.launch"/> -->
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find uams_description)/urdf/uams_platform_open_manipulation.urdf.xacro'
+    enable_logging:=$(arg enable_logging)
+    enable_ground_truth:=$(arg enable_ground_truth)
+    enable_mavlink_interface:=$(arg enable_mavlink_interface)
+    log_file:=$(arg log_file)
+    wait_to_record_bag:=$(arg wait_to_record_bag)
+    mav_name:=$(arg mav_name)
+    namespace:=$(arg namespace)"/>
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="uams_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+     args="-urdf 
+           -model open_manipulator 
+           -param robot_description 
+           -x $(arg x)
+           -y $(arg y)
+           -z $(arg z)"/>
+
+  <!-- Run controller utils -->
+  <include file="$(find uams_gazebo)/launch/controller_utils.launch"/>
+
+  <!-- ros_control robotis manipulator launch file -->
+  <include file="$(find uams_gazebo)/launch/open_manipulator_controller.launch"/>
+
+</launch>

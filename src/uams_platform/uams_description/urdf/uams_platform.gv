@@ -1,0 +1,71 @@
+digraph G {
+node [shape=box];
+"neo11/base_link" [label="neo11/base_link"];
+"neo11/base_link_inertia" [label="neo11/base_link_inertia"];
+"link1" [label="link1"];
+"link2" [label="link2"];
+"link3" [label="link3"];
+"link4" [label="link4"];
+"link5" [label="link5"];
+"camera_link" [label="camera_link"];
+"depth_camera_bottom_screw_frame" [label="depth_camera_bottom_screw_frame"];
+"depth_camera_link" [label="depth_camera_link"];
+"end_effector_link" [label="end_effector_link"];
+"gripper_link" [label="gripper_link"];
+"gripper_link_sub" [label="gripper_link_sub"];
+"neo11/imu_link" [label="neo11/imu_link"];
+"neo11/imugt_link" [label="neo11/imugt_link"];
+"neo11/odometry_sensor1_link" [label="neo11/odometry_sensor1_link"];
+"neo11/odometry_sensorgt_link" [label="neo11/odometry_sensorgt_link"];
+"neo11/rotor_0" [label="neo11/rotor_0"];
+"neo11/rotor_1" [label="neo11/rotor_1"];
+"neo11/rotor_2" [label="neo11/rotor_2"];
+"neo11/rotor_3" [label="neo11/rotor_3"];
+"neo11/rotor_4" [label="neo11/rotor_4"];
+"neo11/rotor_5" [label="neo11/rotor_5"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"neo11/base_link" -> "neo11/base_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"neo11/base_joint" -> "neo11/base_link_inertia"
+"neo11/base_link_inertia" -> "vehicle_joint" [label="xyz: 0 0 0 \nrpy: 3.14159 -2.06823e-13 -1.5708"]
+"vehicle_joint" -> "link1"
+"link1" -> "joint1" [label="xyz: 0.012 0 0.017 \nrpy: 0 -0 0"]
+"joint1" -> "link2"
+"link2" -> "joint2" [label="xyz: 0 0 0.0595 \nrpy: 0 -0 0"]
+"joint2" -> "link3"
+"link3" -> "joint3" [label="xyz: 0.024 0 0.128 \nrpy: 0 -0 0"]
+"joint3" -> "link4"
+"link4" -> "joint4" [label="xyz: 0.124 0 0 \nrpy: 0 -0 0"]
+"joint4" -> "link5"
+"link5" -> "camera_joint" [label="xyz: 0.07 0.032 0.052 \nrpy: 0 -0 0"]
+"camera_joint" -> "camera_link"
+"camera_link" -> "depth_camera_joint" [label="xyz: 0 -0.03 -0.02 \nrpy: 0 -0 0"]
+"depth_camera_joint" -> "depth_camera_bottom_screw_frame"
+"depth_camera_bottom_screw_frame" -> "depth_camera_link_joint" [label="xyz: 0.0106 0.0175 0.0125 \nrpy: 0 -0 0"]
+"depth_camera_link_joint" -> "depth_camera_link"
+"link5" -> "end_effector_joint" [label="xyz: 0.126 0 0 \nrpy: 0 -0 0"]
+"end_effector_joint" -> "end_effector_link"
+"link5" -> "gripper" [label="xyz: 0.0817 0.021 0 \nrpy: 0 -0 0"]
+"gripper" -> "gripper_link"
+"link5" -> "gripper_sub" [label="xyz: 0.0817 -0.021 0 \nrpy: 0 -0 0"]
+"gripper_sub" -> "gripper_link_sub"
+"neo11/base_link" -> "neo11/imu_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"neo11/imu_joint" -> "neo11/imu_link"
+"neo11/base_link" -> "neo11/imugt_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"neo11/imugt_joint" -> "neo11/imugt_link"
+"neo11/base_link" -> "neo11/odometry_sensor1_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"neo11/odometry_sensor1_joint" -> "neo11/odometry_sensor1_link"
+"neo11/base_link" -> "neo11/odometry_sensorgt_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"neo11/odometry_sensorgt_joint" -> "neo11/odometry_sensorgt_link"
+"neo11/base_link" -> "neo11/rotor_0_joint" [label="xyz: 0.247 0.1506 0.028 \nrpy: 0.0872665 -0 0.523599"]
+"neo11/rotor_0_joint" -> "neo11/rotor_0"
+"neo11/base_link" -> "neo11/rotor_1_joint" [label="xyz: -0.00067 0.28929 0.028 \nrpy: 0 -0.0872665 0"]
+"neo11/rotor_1_joint" -> "neo11/rotor_1"
+"neo11/base_link" -> "neo11/rotor_2_joint" [label="xyz: -0.2501 0.1454 0.028 \nrpy: 0.0872665 -0 2.61799"]
+"neo11/rotor_2_joint" -> "neo11/rotor_2"
+"neo11/base_link" -> "neo11/rotor_3_joint" [label="xyz: -0.2501 -0.1454 0.028 \nrpy: -0.0872665 -0 -2.61799"]
+"neo11/rotor_3_joint" -> "neo11/rotor_3"
+"neo11/base_link" -> "neo11/rotor_4_joint" [label="xyz: -0.00067 -0.28929 0.028 \nrpy: 1.58375e-30 0.0872665 -3.14159"]
+"neo11/rotor_4_joint" -> "neo11/rotor_4"
+"neo11/base_link" -> "neo11/rotor_5_joint" [label="xyz: 0.247 -0.1506 0.028 \nrpy: -0.0872665 -0 -0.523599"]
+"neo11/rotor_5_joint" -> "neo11/rotor_5"
+}
